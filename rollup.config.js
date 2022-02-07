@@ -5,6 +5,8 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
 import image from '@rollup/plugin-image';
+import { config } from 'dotenv';
+import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -38,6 +40,14 @@ export default {
     file: 'public/build/bundle.js',
   },
   plugins: [
+    replace({
+      process: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed,
+        },
+      }),
+    }),
     image(),
     svelte({
       compilerOptions: {
