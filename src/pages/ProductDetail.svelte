@@ -53,6 +53,23 @@
     height: 60vh;
   }
 
-  .info-box {
+  @media only screen and (max-width: 989px) {
+    .detail-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .title {
+      font-size: 20px;
+    }
+
+    .prod-img {
+      width: 100%;
+      height: 32vh;
+      margin: 0px 0px 24px 0px;
+    }
+
+    .desc {
+      font-size: 12px;
+    }
   }
 </style>

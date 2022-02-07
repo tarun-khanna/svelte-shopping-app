@@ -52,4 +52,17 @@
   .category-text:hover {
     color: var(--primary-color);
   }
+
+  @media only screen and (max-width: 989px) {
+    .logo-img {
+      height: 46px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+    }
+    .category-container {
+      display: none;
+    }
+  }
 </style>

@@ -32,4 +32,15 @@
     display: flex;
     flex-wrap: wrap;
   }
+
+  @media only screen and (max-width: 989px) {
+    .category-title {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .category-list {
+      justify-content: center;
+    }
+  }
 </style>

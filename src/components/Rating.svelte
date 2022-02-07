@@ -36,4 +36,16 @@
     font-family: 'Lato-Bold';
     font-size: 14px;
   }
+
+  @media only screen and (max-width: 989px) {
+    .rating-star {
+      font-size: 10px;
+    }
+    .star {
+      width: 8px;
+    }
+    .rating-count {
+      font-size: 12px;
+    }
+  }
 </style>

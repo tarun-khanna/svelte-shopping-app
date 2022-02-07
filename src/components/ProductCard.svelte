@@ -51,4 +51,18 @@
     font-family: 'Lato-Bold';
     margin-bottom: 10px;
   }
+
+  @media only screen and (max-width: 989px) {
+    .card-container {
+      height: auto;
+      width: 142px;
+    }
+
+    .card-title {
+      font-size: 14px;
+    }
+    .card-img {
+      height: 150px;
+    }
+  }
 </style>
