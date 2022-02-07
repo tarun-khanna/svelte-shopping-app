@@ -4,7 +4,7 @@
   export let products = [];
 </script>
 
-<section class="product-list-container">
+<section id={category} class="product-list-container">
   <h3 class="category-title">{category}</h3>
   <div class="category-list">
     {#each products as product (product.id)}

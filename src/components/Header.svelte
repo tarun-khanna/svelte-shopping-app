@@ -1,15 +1,24 @@
 <script>
-  export let categories;
+  import { navigate } from 'svelte-routing';
+  export let categories = [];
+
+  const handleClick = (categoryLink) => {
+    if (categoryLink) {
+      const section = document.getElementById(categoryLink);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+      else navigate('/');
+    } else navigate('/');
+  };
 </script>
 
 <div class="container header-container">
-  <div class="container logo-container">
+  <button on:click={handleClick} class="container logo-container">
     <img class="logo-img" src="/assets/images/logo.svg" alt="logo-dukaan" />
     <h1 class="logo-text">Dukaan</h1>
-  </div>
+  </button>
   <div class="container category-container">
     {#each categories as category}
-      <button class="category-text">{category}</button>
+      <button on:click={() => handleClick(category)} class="category-text">{category}</button>
     {/each}
   </div>
 </div>
