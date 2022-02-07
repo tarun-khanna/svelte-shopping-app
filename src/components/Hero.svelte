@@ -4,10 +4,10 @@
 </script>
 
 <img class="bg-blob" src={blob} alt="bg-img" />
-<div class="hero-container">
+<section class="hero-container">
   <h3 class="title">Find something <br /> you will <br /> love !</h3>
   <img class="illustr" src={illustration} alt="shop-illustration" />
-</div>
+</section>
 
 <style>
   .hero-container {

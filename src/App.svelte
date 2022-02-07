@@ -1,9 +1,7 @@
 <script>
-  import Header from './components/Header.svelte';
-  import Hero from './components/Hero.svelte';
+  import Home from './pages/Home.svelte';
 </script>
 
 <main>
-  <Header />
-  <Hero />
+  <Home />
 </main>

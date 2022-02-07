@@ -31,6 +31,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  color: #333;
   /* background-color: #ffedea; */
 }
 
@@ -81,14 +82,14 @@ button:focus {
 }
 
 :root {
-  --primary-color: #472e8b;
-  --horizontal-spacing: 5vw;
+  --primary-color: #e8af01;
+  --section-horizontal-spacing: 5vw;
   --section-vertical-spacing: 40px;
 }
 
 @media only screen and (min-width: 990px) {
   :root {
-    --horizontal-spacing: 5vw;
-    --section-vertical-spacing: 20px;
+    --section-horizontal-spacing: 8vw;
+    --section-vertical-spacing: 80px;
   }
 }
