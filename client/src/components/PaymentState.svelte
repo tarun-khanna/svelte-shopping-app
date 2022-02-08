@@ -7,7 +7,7 @@
 
   export const initiatePayment = async (price) => {
     const { env } = process;
-    const { RAZORPAY_KEY_ID, API_ENDPOINT } = env;
+    const { RAZORPAY_KEY_ID, API_ENDPOINT, BASE_PATH } = env;
 
     const orderData = await fetch(`${API_ENDPOINT}/payment/orders`, {
       method: 'POST',
@@ -26,7 +26,7 @@
       currency: 'INR',
       name: 'Digital Dukaan',
       description: 'Test Transaction',
-      image: '/assets/images/logo.svg',
+      image: `${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`,
       order_id: id,
       theme: {
         color: '#e8af01',

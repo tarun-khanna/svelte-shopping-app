@@ -1,19 +1,21 @@
 <script>
   import { navigate } from 'svelte-routing';
   export let categories = [];
+  const { env } = process;
+  const { BASE_PATH } = env;
 
   const handleClick = (categoryLink) => {
     if (categoryLink) {
       const section = document.getElementById(categoryLink);
       if (section) section.scrollIntoView({ behavior: 'smooth' });
-      else navigate('/');
-    } else navigate('/');
+      else navigate(`${BASE_PATH ? `/${BASE_PATH}` : '/'}`);
+    } else navigate(`${BASE_PATH ? `/${BASE_PATH}` : '/'}`);
   };
 </script>
 
 <div class="container header-container">
   <button on:click={handleClick} class="container logo-container">
-    <img class="logo-img" src="/assets/images/logo.svg" alt="logo-dukaan" />
+    <img class="logo-img" src={`${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`} alt="logo-dukaan" />
     <h1 class="logo-text">Dukaan</h1>
   </button>
   <div class="container category-container">

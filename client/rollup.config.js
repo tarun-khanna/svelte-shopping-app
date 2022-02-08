@@ -7,6 +7,32 @@ import css from 'rollup-plugin-css-only';
 import image from '@rollup/plugin-image';
 import { config } from 'dotenv';
 import replace from '@rollup/plugin-replace';
+const html = require('@rollup/plugin-html');
+
+const getHtml = () => {
+  const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : '';
+
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+      <title>Digital Dukaan</title>
+  
+      <link rel="icon" href="${basePath}/assets/images/logo.svg" />
+      <link rel="stylesheet" href="${basePath}/global.css" />
+      <link rel="stylesheet" href="${basePath}/bundle.css" />
+
+      <script defer src="${basePath}/bundle.js"></script>
+    </head>
+  
+    <body></body>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </html>
+  `;
+};
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -37,9 +63,12 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: 'public/build/bundle.js',
+    file: 'public/bundle.js',
   },
   plugins: [
+    html({
+      template: getHtml,
+    }),
     replace({
       process: JSON.stringify({
         env: {
@@ -51,35 +80,17 @@ export default {
     image(),
     svelte({
       compilerOptions: {
-        // enable run-time checks when not in production
         dev: !production,
       },
     }),
-    // we'll extract any component CSS out into
-    // a separate file - better for performance
     css({ output: 'bundle.css' }),
-
-    // If you have external dependencies installed from
-    // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration -
-    // consult the documentation for details:
-    // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
       browser: true,
       dedupe: ['svelte'],
     }),
     commonjs(),
-
-    // In dev mode, call `npm run start` once
-    // the bundle has been generated
     !production && serve(),
-
-    // Watch the `public` directory and refresh the
-    // browser on changes when not in production
     !production && livereload('public'),
-
-    // If we're building for production (npm run build
-    // instead of npm run dev), minify
     production && terser(),
   ],
   watch: {

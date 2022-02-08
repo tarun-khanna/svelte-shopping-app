@@ -2,11 +2,13 @@
   import { navigate } from 'svelte-routing';
   import Rating from './Rating.svelte';
   export let product;
+  const { env } = process;
+  const { BASE_PATH } = env;
 
   const { title, image, price, rating } = product;
 
   const handleCardClick = () => {
-    navigate('detail', { state: product });
+    navigate(`${BASE_PATH ? `/${BASE_PATH}/detail` : '/detail'}`, { state: product });
   };
 </script>
 
