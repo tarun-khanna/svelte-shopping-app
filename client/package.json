@@ -8,7 +8,7 @@
     "dev": "rollup -c -w",
     "start": "sirv public -s --no-clear",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d public"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
