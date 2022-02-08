@@ -39,6 +39,22 @@
       handler: function (response) {
         console.log('🚀 ~ initiatePayment ~ response', response);
         paymentState.set({ status: PAYMENT_STATE.SUCCESS, amount: response.amount });
+
+        const data = {
+          orderCreationId: id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature,
+        };
+
+        fetch(`${API_ENDPOINT}/payment/verify`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
       },
     };
     const rzp1 = new window.Razorpay(options);
