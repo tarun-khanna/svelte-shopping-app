@@ -3,12 +3,23 @@
   import Footer from '../components/Footer.svelte';
   import Rating from '../components/Rating.svelte';
   import shopIcon from '../assets/images/shopping-bag.svg';
-  import { initiatePayment } from '../services/payment';
+  import PaymentState, { initiatePayment } from '../components/PaymentState.svelte';
   let product = window.history.state;
 
   const { title, image, price, description, category, rating } = product;
+  let loading = false;
+
+  window.scrollTo(0, 0);
+
+  const handlePayment = () => {
+    loading = true;
+    initiatePayment(price)
+      .catch((err) => console.log('error in 1st api=', err))
+      .finally(() => (loading = false));
+  };
 </script>
 
+<PaymentState />
 <Header />
 <div class="detail-container">
   <img class="prod-img" src={image} alt="prod-img" />
@@ -18,8 +29,12 @@
     <h3 class="price">₹ {price}</h3>
     <Rating {rating} class="rating-box" />
     <p class="desc">{description}</p>
-    <button class="shop-btn" on:click={() => initiatePayment(price)}>
-      <img class="shop-icon" alt="shop-icon" src={shopIcon} /> <span>Buy !</span>
+    <button class="shop-btn" on:click={handlePayment}>
+      {#if loading}
+        <div class="loader" />
+      {:else}
+        <img class="shop-icon" alt="shop-icon" src={shopIcon} /> <span>Buy</span>
+      {/if}
     </button>
   </div>
 </div>
@@ -70,11 +85,32 @@
     text-transform: uppercase;
     display: flex;
     align-items: center;
+    width: 150px;
+    justify-content: center;
   }
 
   .shop-icon {
     width: 18px;
     margin-right: 14px;
+  }
+
+  .loader {
+    border: 4px solid white;
+    border-radius: 50%;
+    border-top: 4px solid transparent;
+    width: 24px;
+    height: 24px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   @media only screen and (max-width: 989px) {
@@ -94,6 +130,10 @@
 
     .desc {
       font-size: 12px;
+    }
+
+    .shop-btn {
+      margin: auto;
     }
   }
 </style>

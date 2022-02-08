@@ -1,7 +1,7 @@
 <script>
   import starFilled from '../assets/images/star-filled.svg';
   export let rating = {};
-  let customClass;
+  let customClass = '';
   export { customClass as class };
 </script>
 
