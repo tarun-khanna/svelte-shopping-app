@@ -31,6 +31,7 @@
       theme: {
         color: '#e8af01',
       },
+      one_click_checkout: true,
       prefill: {
         name: 'Tarun Khanna',
         email: 'test@gmail.com',

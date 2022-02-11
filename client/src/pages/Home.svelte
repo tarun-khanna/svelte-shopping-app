@@ -1,7 +1,7 @@
 <script>
   import Hero from '../components/Hero.svelte';
-  import Header from '../components/Header.svelte';
-  import Footer from '../components/Footer.svelte';
+  import Header from '../components/Header/Header.svelte';
+  import Footer from '../components/Footer/Footer.svelte';
   import ProductSliderList from '../components/ProductSliderList.svelte';
   import { data, fetchCategories, fetchProductsByCategory } from '../services/product';
 

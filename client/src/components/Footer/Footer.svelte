@@ -1,5 +1,5 @@
 <script>
-  import wave from '../assets/images/wave.svg';
+  import wave from '../../assets/images/wave.svg';
 </script>
 
 <img class="footer-img" src={wave} alt="footer-img" />
