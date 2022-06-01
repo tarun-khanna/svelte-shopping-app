@@ -1,6 +1,6 @@
 ### How to work locally
 
-- `cd client/.env`
+- `cd client`
 - remove `BASE_PATH` in `client/.env`
 - run `npm run dev`
 
