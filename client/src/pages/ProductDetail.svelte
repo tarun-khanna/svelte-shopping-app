@@ -29,13 +29,20 @@
     <h3 class="price">₹ {price}</h3>
     <Rating {rating} class="rating-box" />
     <p class="desc">{description}</p>
-    <button class="shop-btn" on:click={handlePayment}>
+    <div class="btn-container">
+      {#if loading}
+        <div class="loader" />
+      {:else}
+      <magic-checkout-btn on:click={handlePayment}></magic-checkout-btn>
+      {/if}
+    </div>
+    <!-- <button class="shop-btn" on:click={handlePayment}>
       {#if loading}
         <div class="loader" />
       {:else}
         <img class="shop-icon" alt="shop-icon" src={shopIcon} /> <span>Buy</span>
       {/if}
-    </button>
+    </button> -->
   </div>
 </div>
 <Footer />
@@ -95,7 +102,7 @@
   }
 
   .loader {
-    border: 4px solid white;
+    border: 4px solid var(--primary-color);
     border-radius: 50%;
     border-top: 4px solid transparent;
     width: 24px;
@@ -103,6 +110,10 @@
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
   }
+
+    .btn-container {
+      width: 250px;
+    }
 
   @keyframes spin {
     0% {
@@ -135,5 +146,12 @@
     .shop-btn {
       margin: auto;
     }
+
+    .btn-container{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    
   }
 </style>
