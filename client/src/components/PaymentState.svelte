@@ -30,6 +30,7 @@
       order_id: id,
       theme: {
         color: '#e8af01',
+        bg_theme: 'diwali',
       },
       one_click_checkout: true,
       prefill: {
@@ -38,7 +39,6 @@
         contact: '9999999999',
       },
       handler: function (response) {
-        console.log('🚀 ~ initiatePayment ~ response', response);
         paymentState.set({ status: PAYMENT_STATE.SUCCESS, amount: response.amount });
 
         const data = {
@@ -58,6 +58,7 @@
         });
       },
     };
+    console.log('🚀 ~ initiatePayment ~ options', options);
     const rzp1 = new window.Razorpay(options);
     rzp1.on('payment.failed', function (error) {
       paymentState.set({ status: PAYMENT_STATE.FAILURE });

@@ -33,7 +33,7 @@
       {#if loading}
         <div class="loader" />
       {:else}
-      <magic-checkout-btn on:click={handlePayment}></magic-checkout-btn>
+        <magic-checkout-btn on:click={handlePayment} />
       {/if}
     </div>
     <!-- <button class="shop-btn" on:click={handlePayment}>
@@ -111,9 +111,9 @@
     animation: spin 2s linear infinite;
   }
 
-    .btn-container {
-      width: 250px;
-    }
+  .btn-container {
+    width: 250px;
+  }
 
   @keyframes spin {
     0% {
@@ -147,11 +147,10 @@
       margin: auto;
     }
 
-    .btn-container{
+    .btn-container {
       width: 100%;
       display: flex;
       justify-content: center;
     }
-    
   }
 </style>
