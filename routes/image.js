@@ -28,13 +28,19 @@ router.get("/fetch", async (req, res) => {
       image,
     };
   }
-  ImageModel.find(query, (err, results) => {
-    if (err) {
-      res.send(err);
-    }
 
-    res.send(results);
-  });
+  ImageModel.findOne(
+    query,
+    {},
+    { sort: { createdAt: -1 } },
+    function (err, results) {
+      if (err) {
+        res.send(err);
+      }
+
+      res.send(results);
+    }
+  );
 });
 
 module.exports = router;

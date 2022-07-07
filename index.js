@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,6 +9,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 // middlewares
 app.use(express.json({ extended: false }));
+
+app.use("/static", express.static(path.join(__dirname, "assets")));
 
 mongoose.connect(
   "mongodb+srv://tarunraj95:e0Rb5BuERpjk8ij5@cluster0.5ki0z.mongodb.net/?retryWrites=true&w=majority",
