@@ -5,7 +5,7 @@
   import successIcon from '../assets/images/success.svg';
   export const paymentState = writable({});
 
-  export const initiatePayment = async (price) => {
+  export const initiatePayment = async (price, selectedTheme) => {
     const { env } = process;
     const { RAZORPAY_KEY_ID, API_ENDPOINT, BASE_PATH } = env;
 
@@ -30,7 +30,7 @@
       order_id: id,
       theme: {
         color: '#e8af01',
-        bg_theme: 'diwali',
+        bg_theme: selectedTheme,
       },
       one_click_checkout: true,
       prefill: {

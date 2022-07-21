@@ -2,9 +2,11 @@
   import Header from '../components/Header/Header.svelte';
   import Footer from '../components/Footer/Footer.svelte';
   import Rating from '../components/Rating.svelte';
-  import shopIcon from '../assets/images/shopping-bag.svg';
   import PaymentState, { initiatePayment } from '../components/PaymentState.svelte';
   let product = window.history.state;
+
+  let selectedTheme = 'christmas'
+  let themes = ['christmas', 'diwali']
 
   const { title, image, price, description, category, rating } = product;
   let loading = false;
@@ -13,7 +15,7 @@
 
   const handlePayment = () => {
     loading = true;
-    initiatePayment(price)
+    initiatePayment(price, selectedTheme)
       .catch((err) => console.log('error in 1st api=', err))
       .finally(() => (loading = false));
   };
@@ -33,7 +35,16 @@
       {#if loading}
         <div class="loader" />
       {:else}
+      <div class="magic-btn-container">
         <magic-checkout-btn on:click={handlePayment} />
+      </div>
+      <select bind:value={selectedTheme}>
+        {#each themes as theme}
+          <option value={theme}>
+            {theme}
+          </option>
+        {/each}
+      </select>
       {/if}
     </div>
     <!-- <button class="shop-btn" on:click={handlePayment}>
@@ -113,6 +124,21 @@
 
   .btn-container {
     width: 250px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .magic-btn-container {
+    margin-bottom: 12px;
+    align-self: center;
+  }
+
+  select {
+    padding: 6px 24px;
+    font-size: 16px;
+    align-self: center;
+    border: 1px solid gray;
+    border-radius: 4px;
   }
 
   @keyframes spin {
