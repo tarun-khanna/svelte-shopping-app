@@ -50,7 +50,6 @@ if (requestedReviewersCount === 0 && reviewersCount === 0) {
  *         2191 is size of pr template assuming that is never going to change
  */
 const prTemplateSize = 2191;
-console.log('🚀 ~ pr.body.length', pr.body.length);
 if (pr.body.length <= prTemplateSize) {
   warn(`Please include a description of your PR changes.`);
 }
@@ -62,4 +61,16 @@ if (pr.body.length <= prTemplateSize) {
  */
 if (pr.labels.length < 1) {
   fail(`🕵 Whoops, I don't see any labels. Please add relevant labels to your pr.`);
+}
+
+const modifiedFiles = danger.git.modified_files;
+const newFiles = danger.git.created_files;
+const changedFiles = [...modifiedFiles, ...newFiles];
+
+for (let file of changedFiles) {
+  const fileContent = fs.readFileSync(file).toString();
+  const fileUrl = danger.github.utils.fileLinks([file]);
+  console.log('🚀 ~ fileUrl', fileUrl);
+
+  if (fileContent.includes('!important')) warn(`**${fileUrl}**: No !important tags`);
 }
