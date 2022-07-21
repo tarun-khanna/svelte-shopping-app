@@ -50,6 +50,7 @@ if (requestedReviewersCount === 0 && reviewersCount === 0) {
  *         2191 is size of pr template assuming that is never going to change
  */
 const prTemplateSize = 2191;
+console.log('🚀 ~ pr.body.length', pr.body.length);
 if (pr.body.length <= prTemplateSize) {
   warn(`Please include a description of your PR changes.`);
 }
