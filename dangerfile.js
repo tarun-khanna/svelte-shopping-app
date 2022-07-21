@@ -1,6 +1,6 @@
 // refer file: https://gist.github.com/kkemple/998aad9f2b25520c916b00891abb6543
 import { danger, fail, warn, message } from 'danger';
-
+const fs = require('fs');
 /**
  * Rule: Small pr is suggested.
  * Reason: Pr is not supposed to be very large so it is suggested to keep the pr small.
