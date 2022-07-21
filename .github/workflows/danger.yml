@@ -5,7 +5,7 @@ name: Danger CI
 on:
   pull_request:
     branches:
-      - master
+      - main
     types: [opened, reopened, synchronize, labeled, unlabeled, review_requested, review_request_removed]
 
 jobs:
