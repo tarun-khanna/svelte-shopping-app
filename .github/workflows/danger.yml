@@ -11,7 +11,7 @@ on:
 jobs:
   Danger:
     name: Run Danger JS
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     env:
       # As Danger uses a bot to put comments on your pr you need to
       # use `secrets.CI_BOT_TOKEN` (Personal Access Token) to provide write access to bot.
