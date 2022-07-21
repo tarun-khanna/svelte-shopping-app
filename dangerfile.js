@@ -1,5 +1,5 @@
 // refer file: https://gist.github.com/kkemple/998aad9f2b25520c916b00891abb6543
-import { danger, fail, warn, message } from "danger";
+import { danger, fail, warn, message } from 'danger';
 
 /**
  * Rule: Small pr is suggested.
@@ -10,9 +10,7 @@ import { danger, fail, warn, message } from "danger";
 const pr = danger.github.pr;
 const bigPRThreshold = 600;
 if (pr.additions > bigPRThreshold) {
-  warn(
-    `Your PR has over ${bigPRThreshold} lines of code additions :scream: . Try to breakup into separate PRs :+1:`
-  );
+  warn(`Your PR has over ${bigPRThreshold} lines of code additions :scream: . Try to breakup into separate PRs :+1:`);
 }
 
 /**
@@ -29,20 +27,20 @@ const requestedReviewersCount = requestedReviewers.users.length + requestedRevie
 const reviews = danger.github.reviews;
 let reviewers = [];
 for (let i = 0; i < reviews.length; i++) {
-  if (reviews[i].user.type === "User") {
+  if (reviews[i].user.type === 'User') {
     if (!reviewers.includes(reviews[i].id)) {
-      reviewers.push(reviews[i].id)
+      reviewers.push(reviews[i].id);
     }
   }
 }
-const reviewersCount = reviewers.length
+const reviewersCount = reviewers.length;
 // either PR should already be reviewed or reviewers must be added
 if (requestedReviewersCount === 0 && reviewersCount === 0) {
   fail(`🕵 Whoops, I don't see any reviewers. Remember to add one.`);
 } else if (requestedReviewersCount > 2) {
   warn(
-    `It's great to have ${requestedReviewersCount} reviewers. Remember though `
-    + `that more than 2 reviewer may lead to uncertainty as to who is responsible for the review.`
+    `It's great to have ${requestedReviewersCount} reviewers. Remember though ` +
+      `that more than 2 reviewer may lead to uncertainty as to who is responsible for the review.`
   );
 }
 
@@ -52,7 +50,7 @@ if (requestedReviewersCount === 0 && reviewersCount === 0) {
  *         2191 is size of pr template assuming that is never going to change
  */
 const prTemplateSize = 2191;
-if (pr.body.length === prTemplateSize) {
+if (pr.body.length <= prTemplateSize) {
   warn(`Please include a description of your PR changes.`);
 }
 
