@@ -70,7 +70,14 @@ const changedFiles = [...modifiedFiles, ...newFiles];
 for (let file of changedFiles) {
   const fileContent = fs.readFileSync(file).toString();
   const fileUrl = danger.github.utils.fileLinks([file]);
-  console.log('🚀 ~ fileUrl', fileUrl);
 
   if (fileContent.includes('!important')) warn(`**${fileUrl}**: No !important tags`);
+}
+
+for (let file of newFiles) {
+  const fileUrl = danger.github.utils.fileLinks([file]);
+
+  danger.git.structuredDiffForFile(file).then((res) => {
+    if (res.chunks[0]?.newLines > 50) warn(`**${fileUrl}**: Line number exceeding`);
+  });
 }
