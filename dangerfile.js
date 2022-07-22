@@ -78,6 +78,6 @@ for (let file of newFiles) {
   const fileUrl = danger.github.utils.fileLinks([file]);
 
   danger.git.structuredDiffForFile(file).then((res) => {
-    if (res.chunks[0]?.newLines > 50) warn(`**${fileUrl}**: Line number exceeding`);
+    if (res.chunks[0] && res.chunks[0].newLines > 50) warn(`**${fileUrl}**: Line number exceeding`);
   });
 }
