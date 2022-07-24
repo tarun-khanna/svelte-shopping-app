@@ -1,13 +1,19 @@
 // refer file: https://gist.github.com/kkemple/998aad9f2b25520c916b00891abb6543
 import { danger, fail, warn, message } from 'danger';
+
 const fs = require('fs');
+
+const modifiedFiles = danger.git.modified_files;
+const newFiles = danger.git.created_files;
+const changedFiles = [...modifiedFiles, ...newFiles];
+const pr = danger.github.pr;
+
 /**
  * Rule: Small pr is suggested.
  * Reason: Pr is not supposed to be very large so it is suggested to keep the pr small.
  *         So it would be easy for reviewer to review and reduce chances of missing bugs.
  *         Warn when there is a big PR
  */
-const pr = danger.github.pr;
 const bigPRThreshold = 600;
 if (pr.additions > bigPRThreshold) {
   warn(`Your PR has over ${bigPRThreshold} lines of code additions :scream: . Try to breakup into separate PRs :+1:`);
@@ -47,7 +53,7 @@ if (requestedReviewersCount === 0 && reviewersCount === 0) {
 /**
  * Rule: Pr description is required.
  * Reason: No PR is too small to include a description of why you made a change
- *         2191 is size of pr template assuming that is never going to change
+ *         2191 is size of pr template
  */
 const prTemplateSize = 2191;
 if (pr.body.length <= prTemplateSize) {
@@ -63,21 +69,61 @@ if (pr.labels.length < 1) {
   fail(`🕵 Whoops, I don't see any labels. Please add relevant labels to your pr.`);
 }
 
-const modifiedFiles = danger.git.modified_files;
-const newFiles = danger.git.created_files;
-const changedFiles = [...modifiedFiles, ...newFiles];
-
+/**
+ * Rule: no !important in css
+ * Reason: There's always a way to avoid !important 🙂, try specificity !
+ */
 for (let file of changedFiles) {
   const fileContent = fs.readFileSync(file).toString();
   const fileUrl = danger.github.utils.fileLinks([file]);
 
-  if (fileContent.includes('!important')) warn(`**${fileUrl}**: No !important tags`);
+  if (fileContent.includes('!important')) warn(`No !important in css, found in **${fileUrl}**:`);
 }
 
+/**
+ * Rule: file size should be less than threshold
+ * Reason: There's always a way to avoid !important 🙂, try specificity !
+ */
+const fileSizeThreshold = 300;
 for (let file of newFiles) {
   const fileUrl = danger.github.utils.fileLinks([file]);
 
   danger.git.structuredDiffForFile(file).then((res) => {
-    if (res.chunks[0] && res.chunks[0].newLines > 50) warn(`**${fileUrl}**: Line number exceeding`);
+    if (res.chunks[0] && res.chunks[0].newLines > fileSizeThreshold) warn(`😧 Woah ! Line number threshold exceeding here ${fileUrl}`);
   });
+}
+
+/**
+ * Rule: svelte files should follow PascalCase naming
+ */
+const svelteFiles = changedFiles.filter((file) => file.includes('.svelte'));
+
+for (let file of svelteFiles) {
+  const fileUrl = danger.github.utils.fileLinks([file]);
+
+  const fileName = file.split('/')[file.split('/').length - 1];
+  if (!fileName.split('.')[0].match('^[A-Z][a-z]+(?:[A-Z][a-z]+)*$')) {
+    warn(`**${fileUrl}**: PascalCase here please ! 😬`);
+  }
+}
+
+/**
+ * Rule: Warn if package.json is modified
+ * Reason: We do not want to increase our bundle size, hence every new lib added needs to be reviewed
+ *         by checkout gatekeepers.
+ */
+const packageFile = modifiedFiles.find((file) => file.includes('package.json'));
+if (packageFile) {
+  const fileUrl = danger.github.utils.fileLinks([packageFile]);
+  warn(`**${fileUrl}**: package.json is modified, do get this reviewed by gatekeepers ! 😇`);
+}
+
+/**
+ * Rule: Warn if session.js is modified
+ * Reason: We are trying to phase out session.js so we want to avoid any changes unless required.
+ */
+const sessionJs = modifiedFiles.find((file) => file.includes('session.js'));
+if (sessionJs) {
+  const fileUrl = danger.github.utils.fileLinks([sessionJs]);
+  warn(`**${fileUrl}**: session.js is modified, do check if your logic can be de-coupled. 😇`);
 }
