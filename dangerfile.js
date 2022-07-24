@@ -89,7 +89,8 @@ for (let file of newFiles) {
   const fileUrl = danger.github.utils.fileLinks([file]);
 
   danger.git.structuredDiffForFile(file).then((res) => {
-    if (res.chunks[0] && res.chunks[0].newLines > fileSizeThreshold) warn(`😧 Woah ! Line number threshold exceeding here ${fileUrl}`);
+    if (res.chunks[0] && res.chunks[0].newLines > fileSizeThreshold)
+      warn(`this ${fileUrl} has over ${bigPRThreshold} lines of code additions :scream: . Try to breakup into separate functions/components :+1:`);
   });
 }
 
@@ -122,7 +123,7 @@ if (packageFile) {
  * Rule: Warn if session.js is modified
  * Reason: We are trying to phase out session.js so we want to avoid any changes unless required.
  */
-const sessionJs = modifiedFiles.find((file) => file.includes('session.js'));
+const sessionJs = changedFiles.find((file) => file.includes('session.js'));
 if (sessionJs) {
   const fileUrl = danger.github.utils.fileLinks([sessionJs]);
   warn(`**${fileUrl}**: session.js is modified, do check if your logic can be de-coupled. 😇`);
