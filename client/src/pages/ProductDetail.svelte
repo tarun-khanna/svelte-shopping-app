@@ -19,6 +19,13 @@
       .catch((err) => console.log('error in 1st api=', err))
       .finally(() => (loading = false));
   };
+
+  const handleStandardCx = () => {
+    loading = true;
+    initiatePayment(price, selectedTheme, true)
+      .catch((err) => console.log('error in 1st api=', err))
+      .finally(() => (loading = false));
+  }
 </script>
 
 <PaymentState />
@@ -38,6 +45,7 @@
       <div class="magic-btn-container">
         <magic-checkout-btn on:click={handlePayment} />
       </div>
+      <button on:click={handleStandardCx}>standard checkout pay</button>
       <select bind:value={selectedTheme}>
         {#each themes as theme}
           <option value={theme}>

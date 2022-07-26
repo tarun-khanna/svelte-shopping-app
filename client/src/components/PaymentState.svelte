@@ -5,7 +5,7 @@
   import successIcon from '../assets/images/success.svg';
   export const paymentState = writable({});
 
-  export const initiatePayment = async (price, selectedTheme) => {
+  export const initiatePayment = async (price, selectedTheme, isStandard) => {
     const { env } = process;
     const { RAZORPAY_KEY_ID, API_ENDPOINT, BASE_PATH } = env;
 
@@ -27,7 +27,6 @@
       name: 'Digital Dukaan',
       description: 'Test Transaction',
       image: `${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`,
-      order_id: id,
       theme: {
         color: '#e8af01',
         bg_theme: selectedTheme,
@@ -58,6 +57,10 @@
         });
       },
     };
+
+    if(!isStandard) {
+      options.order_id = id
+    }
     console.log('🚀 ~ initiatePayment ~ options', options);
     const rzp1 = new window.Razorpay(options);
     rzp1.on('payment.failed', function (error) {
