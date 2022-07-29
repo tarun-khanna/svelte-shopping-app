@@ -42,7 +42,7 @@ for (let i = 0; i < reviews.length; i++) {
 const reviewersCount = reviewers.length;
 // either PR should already be reviewed or reviewers must be added
 if (requestedReviewersCount === 0 && reviewersCount === 0) {
-  fail(`🕵 Whoops, I don't see any reviewers. Remember to add one.`);
+  warn(`🕵 Whoops, I don't see any reviewers. Remember to add one.`);
 } else if (requestedReviewersCount > 2) {
   warn(
     `It's great to have ${requestedReviewersCount} reviewers. Remember though ` +
@@ -53,9 +53,8 @@ if (requestedReviewersCount === 0 && reviewersCount === 0) {
 /**
  * Rule: Pr description is required.
  * Reason: No PR is too small to include a description of why you made a change
- *         2191 is size of pr template
  */
-const prTemplateSize = 2191;
+const prTemplateSize = 300;
 if (pr.body.length <= prTemplateSize) {
   warn(`Please include a description of your PR changes.`);
 }
@@ -66,23 +65,23 @@ if (pr.body.length <= prTemplateSize) {
  *         to describe the purpose of pr.
  */
 if (pr.labels.length < 1) {
-  fail(`🕵 Whoops, I don't see any labels. Please add relevant labels to your pr.`);
+  warn(`🕵 Whoops, I don't see any labels. Please add relevant labels to your pr.`);
 }
 
 /**
- * Rule: no !important in css
+ * Rule: No !important in css
  * Reason: There's always a way to avoid !important 🙂, try specificity !
  */
 for (let file of changedFiles) {
   const fileContent = fs.readFileSync(file).toString();
   const fileUrl = danger.github.utils.fileLinks([file]);
 
-  if (fileContent.includes('!important')) warn(`No !important in css, found in **${fileUrl}**:`);
+  if (fileContent.includes('!important')) warn(`**${fileUrl}**: Avoid !important in css, try specificity. 😉`);
 }
 
 /**
- * Rule: file size should be less than threshold
- * Reason: There's always a way to avoid !important 🙂, try specificity !
+ * Rule: File size should be less than threshold
+ * Reason: Aim is to move towards a more modularized code, hence try to break large files in separate functions/components.
  */
 const fileSizeThreshold = 300;
 for (let file of newFiles) {
@@ -95,7 +94,8 @@ for (let file of newFiles) {
 }
 
 /**
- * Rule: svelte files should follow PascalCase naming
+ * Rule: Svelte files should follow PascalCase naming
+ * Reason: A general good practice for naming components.
  */
 const svelteFiles = changedFiles.filter((file) => file.includes('.svelte'));
 
@@ -104,7 +104,7 @@ for (let file of svelteFiles) {
 
   const fileName = file.split('/')[file.split('/').length - 1];
   if (!fileName.split('.')[0].match('^[A-Z][a-z]+(?:[A-Z][a-z]+)*$')) {
-    warn(`**${fileUrl}**: PascalCase here please ! 😬`);
+    fail(`**${fileUrl}**: PascalCase here please ! 😬`);
   }
 }
 
@@ -126,5 +126,5 @@ if (packageFile) {
 const sessionJs = changedFiles.find((file) => file.includes('session.js'));
 if (sessionJs) {
   const fileUrl = danger.github.utils.fileLinks([sessionJs]);
-  warn(`**${fileUrl}**: session.js is modified, do check if your logic can be de-coupled. 😇`);
+  warn(`**${fileUrl}**: is modified !! do check if your logic can be de-coupled. 😇`);
 }
