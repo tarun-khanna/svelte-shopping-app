@@ -3,6 +3,7 @@
 name: Danger CI
 
 on:
+  push:
   pull_request:
     branches:
       - main
@@ -22,6 +23,18 @@ jobs:
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v2
+
+      - name: Print PR target 1
+        run: echo "The PR target is ${{ github.event.pull_request.base.ref }}"
+
+      - name: Print PR target 2
+        run: echo "The PR target is ${{ github.base_ref }}"
+
+      - name: Print PR target 2
+        run: echo "Base ref is $GITHUB_BASE_REF"
+
+      - name: Print current branch
+        run: echo "The current branch is ${{ github.ref }}"
 
       - name: Danger
         uses: danger/danger-js@11.0.2
