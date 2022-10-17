@@ -7,11 +7,11 @@ const crypto = require("crypto");
 const router = express.Router();
 
 router.post("/orders", async (req, res) => {
-  const { price } = req.body;
-  if (!price) {
+  const { amount, currency, line_items_total } = req.body;
+  if (!amount) {
     return res
       .status(400)
-      .send({ message: "Price is mandatory for order creation." });
+      .send({ message: "Amount is mandatory for order creation." });
   }
   try {
     const instance = new Razorpay({
@@ -20,11 +20,14 @@ router.post("/orders", async (req, res) => {
     });
 
     const options = {
-      amount: +price * 100,
-      currency: "INR",
+      amount: +amount * 100,
+      currency: currency || "INR",
       receipt: nanoid(),
-      line_items_total: +price * 100,
     };
+
+    if (line_items_total) {
+      options.line_items_total = +line_items_total * 100;
+    }
 
     const order = await instance.orders.create(options);
 
