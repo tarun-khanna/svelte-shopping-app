@@ -5,17 +5,23 @@
   import successIcon from '../assets/images/success.svg';
   export const paymentState = writable({});
 
-  export const initiatePayment = async (price, selectedTheme) => {
+  export const initiatePayment = async (price, isOneCC, selectedTheme) => {
     const { env } = process;
     const { RAZORPAY_KEY_ID, API_ENDPOINT, BASE_PATH } = env;
 
+    const orderPayload = {
+      amount: price
+    }
+    if(isOneCC) {
+      orderPayload.line_items_total = price
+    }
     const orderData = await fetch(`${API_ENDPOINT}/payment/orders`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ price }),
+      body: JSON.stringify(orderPayload),
     }).then((res) => res.json());
 
     const { amount, id } = orderData;
@@ -58,7 +64,7 @@
         });
       },
     };
-    console.log('🚀 ~ initiatePayment ~ options', options);
+
     const rzp1 = new window.Razorpay(options);
     rzp1.on('payment.failed', function (error) {
       paymentState.set({ status: PAYMENT_STATE.FAILURE });

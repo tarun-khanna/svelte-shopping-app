@@ -12,6 +12,8 @@ const html = require('@rollup/plugin-html');
 const getHtml = () => {
   const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : '';
 
+  // loading animation script
+  // <script src="https://betacdn.np.razorpay.in/checkout/builds/branch-builds/feat/loadingAnimation/v1/checkout.js"></script>
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -29,7 +31,8 @@ const getHtml = () => {
     </head>
   
     <body></body>
-    <script src="https://betacdn.np.razorpay.in/checkout/builds/branch-builds/feat/loadingAnimation/v1/checkout.js"></script>
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </html>
   `;
 };

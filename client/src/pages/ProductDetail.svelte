@@ -13,9 +13,9 @@
 
   window.scrollTo(0, 0);
 
-  const handlePayment = () => {
+  const handlePayment = (isOneCC) => {
     loading = true;
-    initiatePayment(price, selectedTheme)
+    initiatePayment(price, isOneCC, selectedTheme)
       .catch((err) => console.log('error in 1st api=', err))
       .finally(() => (loading = false));
   };
@@ -36,7 +36,7 @@
         <div class="loader" />
       {:else}
       <div class="magic-btn-container">
-        <magic-checkout-btn on:click={handlePayment} />
+        <magic-checkout-btn on:click={() => handlePayment(true)} />
       </div>
       <select bind:value={selectedTheme}>
         {#each themes as theme}
