@@ -3,14 +3,17 @@
   import Footer from '../components/Footer/Footer.svelte';
   import Rating from '../components/Rating.svelte';
   import PaymentState, { initiatePayment } from '../components/PaymentState.svelte';
+  import Dropdown from '../components/Dropdown.svelte';
+  import CustomCheckout from '../components/CustomCheckout.svelte';
   let product = window.history.state;
 
-  let selectedTheme = 'christmas'
-  let themes = ['christmas', 'diwali']
+  let selectedTheme = 'christmas';
+  let themes = ['christmas', 'diwali'];
 
   const { title, image, price, description, category, rating } = product;
   let loading = false;
-
+  let checkoutType = 'Standard';
+  $: checkout = checkoutType;
   window.scrollTo(0, 0);
 
   const handlePayment = (isOneCC) => {
@@ -18,6 +21,11 @@
     initiatePayment(price, isOneCC, selectedTheme)
       .catch((err) => console.log('error in 1st api=', err))
       .finally(() => (loading = false));
+  };
+
+  const selectedOption = (option) => {
+    window.Razorpay = null;
+    checkoutType = option;
   };
 </script>
 
@@ -28,17 +36,20 @@
 
   <div class="info-box">
     <h2 class="title">{title}</h2>
-    <h3 class="price">₹ {price}</h3>
+    <h3 class="price">RM {price}</h3>
     <Rating {rating} class="rating-box" />
     <p class="desc">{description}</p>
+    <Dropdown onOptionClick={selectedOption} />
     <div class="btn-container">
       {#if loading}
         <div class="loader" />
+      {:else if checkout === 'Custom'}
+        <CustomCheckout itemPrice={price} />
       {:else}
-      <div class="magic-btn-container">
-        <magic-checkout-btn on:click={() => handlePayment(true)} />
-      </div>
-      <!-- <select bind:value={selectedTheme}>
+        <div class="magic-btn-container" on:click={() => handlePayment(true)}>
+          <div>Magic Checkout</div>
+        </div>
+        <!-- <select bind:value={selectedTheme}>
         {#each themes as theme}
           <option value={theme}>
             {theme}
@@ -47,6 +58,7 @@
       </select> -->
       {/if}
     </div>
+
     <!-- <button class="shop-btn" on:click={handlePayment}>
       {#if loading}
         <div class="loader" />
@@ -130,7 +142,15 @@
 
   .magic-btn-container {
     margin-bottom: 12px;
-    align-self: center;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #0460f8;
+    color: #fff;
+    height: 50px;
+    cursor: pointer;
   }
 
   select {

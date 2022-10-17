@@ -10,10 +10,10 @@
     const { RAZORPAY_KEY_ID, API_ENDPOINT, BASE_PATH } = env;
 
     const orderPayload = {
-      amount: price
-    }
-    if(isOneCC) {
-      orderPayload.line_items_total = price
+      amount: price,
+    };
+    if (isOneCC) {
+      orderPayload.line_items_total = price;
     }
     const orderData = await fetch(`${API_ENDPOINT}/payment/orders`, {
       method: 'POST',
@@ -64,13 +64,17 @@
         });
       },
     };
+    fetch('https://checkout.razorpay.com/v1/checkout.js')
+      .then((response) => response.text())
+      .then((txt) => eval(txt))
+      .then(async () => {
+        const rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', function (error) {
+          paymentState.set({ status: PAYMENT_STATE.FAILURE });
+        });
 
-    const rzp1 = new window.Razorpay(options);
-    rzp1.on('payment.failed', function (error) {
-      paymentState.set({ status: PAYMENT_STATE.FAILURE });
-    });
-
-    rzp1.open();
+        rzp1.open();
+      });
   };
 
   const handleModalClick = () => {
