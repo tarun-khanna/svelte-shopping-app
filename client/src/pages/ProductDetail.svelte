@@ -38,13 +38,13 @@
       <div class="magic-btn-container">
         <magic-checkout-btn on:click={() => handlePayment(true)} />
       </div>
-      <select bind:value={selectedTheme}>
+      <!-- <select bind:value={selectedTheme}>
         {#each themes as theme}
           <option value={theme}>
             {theme}
           </option>
         {/each}
-      </select>
+      </select> -->
       {/if}
     </div>
     <!-- <button class="shop-btn" on:click={handlePayment}>
