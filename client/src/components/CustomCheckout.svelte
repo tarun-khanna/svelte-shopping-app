@@ -19,10 +19,10 @@
       .then(async () => {
         const amountMoney = itemPrice ? itemPrice : 1;
         // create order id from server
-        const orderData = await createOrder(amountMoney);
+        // const orderData = await createOrder(amountMoney);
 
         const options = {
-          key: rzp_key ? rzp_key : RAZORPAY_KEY_ID,
+          key: rzp_key ? rzp_key : 'rzp_live_ILgsfZCZoFIKMb',
           image: 'https://i.imgur.com/n5tjHFD.jpg',
         };
 
@@ -38,7 +38,7 @@
           notes: {
             address: 'Ground Floor, SJR Cyber, Laskar Hosur Road, Bengaluru',
           },
-          order_id: orderData.id,
+          // order_id: orderData.id,
           method: 'card',
           'card[name]': cardName,
           'card[number]': newCardNumber,
@@ -100,7 +100,7 @@
 
 <div class="form-wrapper">
   <div class="field">
-    <label for="razorpaykey">Razorpay Key</label>
+    <label for="razorpaykey">Razorpay Key(optional)</label>
     <input
       type="text"
       value={razorpayKey}
@@ -181,14 +181,14 @@
   }
 
   .pay-btn {
-    width: 100px;
+    width: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     background-color: #0460f8;
     color: #fff;
-    height: 50px;
+    height: 40px;
     cursor: pointer;
   }
 

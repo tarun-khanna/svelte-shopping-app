@@ -3,7 +3,7 @@
   const dispatch = createEventDispatcher();
 
   const checkoutType = ['Standard', 'Custom'];
-  let selectedOption = 'Checkout Type';
+  let selectedOption = 'Select Checkout Type';
   let isExpanded = false;
   let dropdownRef;
   export let onOptionClick;
@@ -48,17 +48,17 @@
 
   .dropdown-title {
     display: flex;
-    height: 3rem;
+    height: 30px;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #0460f8;
+    border: 1px solid #0460f8;
     border-radius: 5px;
   }
   .dropdown-title .title {
     font-size: 14px;
     font-weight: 600;
-    color: white;
+    color: #0460f8;
   }
 
   .options {

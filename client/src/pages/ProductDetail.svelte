@@ -149,7 +149,7 @@
     border-radius: 5px;
     background-color: #0460f8;
     color: #fff;
-    height: 50px;
+    height: 40px;
     cursor: pointer;
   }
 

@@ -15,7 +15,7 @@
 <div on:click={handleCardClick} class="card-container">
   <img class="card-img" src={image} alt="product-img" />
   <p class="card-title">{title}</p>
-  <p class="card-price">₹ {price}</p>
+  <p class="card-price">RM {price}</p>
   <Rating {rating} />
 </div>
 
