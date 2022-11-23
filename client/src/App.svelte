@@ -1,5 +1,6 @@
 <script>
   import { Router, Route } from 'svelte-routing';
+  import DemoMy from './pages/DemoMY.svelte';
   import Home from './pages/Home.svelte';
   import ProductDetail from './pages/ProductDetail.svelte';
 
@@ -10,7 +11,8 @@
 
 <main>
   <Router {url} {basepath}>
-    <Route path="/" component={Home} />
+    <Route path="/" component={DemoMy} />
+    <Route path="home" component={Home} />
     <Route path="detail" component={ProductDetail} />
   </Router>
 </main>
