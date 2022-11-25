@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "danger-plugin-code-coverage": "^1.1.9"
+  }
+}
