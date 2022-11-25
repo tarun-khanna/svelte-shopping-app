@@ -12,38 +12,39 @@
     const orderPayload = {
       amount: price,
     };
-    if (isOneCC) {
+    if (false) {
       orderPayload.line_items_total = price;
     }
-    const orderData = await fetch(`${API_ENDPOINT}/payment/orders`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderPayload),
-    }).then((res) => res.json());
+    // const orderData = await fetch(`${API_ENDPOINT}/payment/orders`, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(orderPayload),
+    // }).then((res) => res.json());
 
-    const { amount, id } = orderData;
+    // const { amount, id } = orderData;
 
     const options = {
-      key: RAZORPAY_KEY_ID,
-      amount: `${amount * 100}`,
-      currency: 'INR',
+      key: 'rzp_test_GMbHEQXuwulti8',
+      amount: `${price * 100}`,
+      currency: 'MYR',
       name: 'Digital Dukaan',
       description: 'Test Transaction',
       image: `${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`,
-      order_id: id,
+      // order_id: id,
       theme: {
         color: '#e8af01',
         bg_theme: selectedTheme,
       },
-      one_click_checkout: true,
       prefill: {
         name: 'Tarun Khanna',
         email: 'test@gmail.com',
-        contact: '9999999999',
+        contact: '+6088888888',
       },
+      redirect: true,
+      disable_redesign_v15: false,
       handler: function (response) {
         paymentState.set({ status: PAYMENT_STATE.SUCCESS, amount: response.amount });
 
@@ -64,17 +65,24 @@
         });
       },
     };
-    fetch('https://checkout.razorpay.com/v1/checkout.js')
-      .then((response) => response.text())
-      .then((txt) => eval(txt))
-      .then(async () => {
-        const rzp1 = new window.Razorpay(options);
-        rzp1.on('payment.failed', function (error) {
-          paymentState.set({ status: PAYMENT_STATE.FAILURE });
-        });
 
-        rzp1.open();
-      });
+    const rzp1 = new window.Razorpay(options);
+    rzp1.on('payment.failed', function (error) {
+      paymentState.set({ status: PAYMENT_STATE.FAILURE });
+    });
+
+    rzp1.open();
+    // fetch('https://checkout.razorpay.com/v1/checkout.js')
+    //   .then((response) => response.text())
+    //   .then((txt) => eval(txt))
+    //   .then(async () => {
+    //     const rzp1 = new window.Razorpay(options);
+    //     rzp1.on('payment.failed', function (error) {
+    //       paymentState.set({ status: PAYMENT_STATE.FAILURE });
+    //     });
+
+    //     rzp1.open();
+    //   });
   };
 
   const handleModalClick = () => {
