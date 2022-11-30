@@ -5,7 +5,7 @@
 
   let product = {
     title: 'APPLE iPhone 14 Pro Max (Silver, 1 TB)',
-    price: 1,
+    price: 2,
     description: `Razorpay provides an end-to-end online payments solution. We accept and validate Internet payments via Credit Card, Debit Card, Net-Banking, UPI and popular Wallets from the end customers in real-time. 
       Ut non aliqua dolore ut anim enim. Aliquip enim tempor amet fugiat veniam reprehenderit magna aliquip laborum laboris officia eiusmod. Ipsum irure quis mollit velit tempor culpa mollit irure nisi consectetur nisi consequat.`,
     images: [
