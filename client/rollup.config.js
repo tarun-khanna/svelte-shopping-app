@@ -12,7 +12,16 @@ const html = require('@rollup/plugin-html');
 const getHtml = () => {
   const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : '';
 
-  // loading animation script
+  // ------ script to use devstack API endpoint ------
+  //   <script>
+  //   Razorpay = {
+  //     config: {
+  //       api: 'https://api-web-tarun-khanna.dev.razorpay.in/',
+  //       frame: 'https://api-web-tarun-khanna.dev.razorpay.in/test/checkout.html?branch=test/fpx',
+  //     },
+  //   };
+  // </script>
+  // ------ loading animation script ------
   // <script src="https://betacdn.np.razorpay.in/checkout/builds/branch-builds/feat/loadingAnimation/v1/checkout.js"></script>
   return `
   <!DOCTYPE html>
@@ -28,10 +37,12 @@ const getHtml = () => {
       <link rel="stylesheet" href="${basePath}/bundle.css" />
 
       <script defer src="${basePath}/bundle.js"></script>
+    
     </head>
   
+
     <body></body>
-    
+    <script src="https://betacdn.np.razorpay.in/checkout/builds/branch-builds/master/v1/checkout.js"></script>
     
   </html>
   `;

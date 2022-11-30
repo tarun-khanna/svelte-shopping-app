@@ -27,7 +27,7 @@
 
   const handlePayment = () => {
     loading = true;
-    initiatePayment(1, false)
+    initiatePayment(product.price, false)
       .catch((err) => console.log('error in 1st api=', err))
       .finally(() => (loading = false));
   };

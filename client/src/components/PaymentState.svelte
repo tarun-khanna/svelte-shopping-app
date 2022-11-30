@@ -27,7 +27,7 @@
     // const { amount, id } = orderData;
 
     const options = {
-      key: 'rzp_test_GMbHEQXuwulti8',
+      key: 'rzp_live_fQOafVJoJqscJ6',
       amount: `${price * 100}`,
       currency: 'MYR',
       name: 'Digital Dukaan',
@@ -41,7 +41,7 @@
       prefill: {
         name: 'Tarun Khanna',
         email: 'test@gmail.com',
-        contact: '+6088888888',
+        contact: '88888888',
       },
       redirect: true,
       disable_redesign_v15: false,
