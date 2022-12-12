@@ -42,7 +42,7 @@ const getHtml = () => {
   
 
     <body></body>
-    <script src="https://betacdn.np.razorpay.in/checkout/builds/branch-builds/master/v1/checkout.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     
   </html>
   `;
