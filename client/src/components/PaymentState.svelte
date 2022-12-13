@@ -39,11 +39,10 @@
         bg_theme: selectedTheme,
       },
       prefill: {
-        name: 'Tarun Khanna',
         email: 'test@gmail.com',
         contact: '88888888',
       },
-      redirect: true,
+      // redirect: true,
       disable_redesign_v15: false,
       handler: function (response) {
         paymentState.set({ status: PAYMENT_STATE.SUCCESS, amount: response.amount });
