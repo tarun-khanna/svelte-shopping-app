@@ -52,7 +52,7 @@ router.post("/verify", async (req, res) => {
     const digest = shasum.digest("hex");
 
     if (digest !== razorpaySignature)
-      return res.status(400).send({ msg: "Transaction not legit!" });
+      return res.status(400).send({ msg: "Transaction not legit !" });
 
     res.json({
       msg: "success",
