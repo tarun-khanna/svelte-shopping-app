@@ -17,7 +17,7 @@
       <span><Link to="partner">Partner</Link></span>
     </p>
 
-    <p>Digital Dukaan &copy; 2022</p>
+    <p>Test Store &copy; 2022</p>
   </div>
 </footer>
 

@@ -25,7 +25,7 @@
 
     const options = {
       currency,
-      name: 'Digital Dukaan',
+      name: 'Test Store',
       description: 'Test Transaction',
       image: `${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`,
       theme: {

@@ -18,7 +18,7 @@
 <div class="container header-container">
   <button on:click={handleClick} class="container logo-container">
     <img class="logo-img" src={`${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`} alt="logo-dukaan" />
-    <h1 class="logo-text">Dukaan</h1>
+    <h1 class="logo-text">Test Store</h1>
   </button>
   {#if showCountryDropdown}
     <select class="country-dropdown" on:change={onCountryChange}>

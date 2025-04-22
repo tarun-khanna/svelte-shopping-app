@@ -32,7 +32,7 @@ const getHtml = () => {
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-      <title>Digital Dukaan</title>
+      <title>Test Store</title>
   
       <link rel="icon" href="${basePath}/assets/images/logo.svg" />
       <link rel="stylesheet" href="${basePath}/global.css" />
