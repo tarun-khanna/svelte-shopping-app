@@ -9,3 +9,5 @@
 - `cd client/.env`
 - add `BASE_PATH=svelte-shopping-app` in `client/.env`
 - run `npm run deploy`
+
+URL: https://tarun-khanna.github.io/svelte-shopping-app/
