@@ -22,8 +22,8 @@
   </button>
   {#if showCountryDropdown}
     <select class="country-dropdown" on:change={onCountryChange}>
-      <option value="MY">🇲🇾 Malaysia</option>
       <option value="SG">🇸🇬 Singapore</option>
+      <option value="MY">🇲🇾 Malaysia</option>
     </select>
   {/if}
   {#if categories.length}

@@ -33,7 +33,7 @@
       .finally(() => (loading = false));
   };
 
-  let activeCountry = 'MY';
+  let activeCountry = 'SG';
 
   const handleCountryChange = (ev) => {
     activeCountry = ev.target.value;
