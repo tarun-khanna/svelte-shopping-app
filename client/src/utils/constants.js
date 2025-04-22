@@ -10,7 +10,7 @@ export const CONFIG_BY_COUNTRY = {
       code: 'SGD',
       display: 'S$',
     },
-    key: 'rzp_test_FGj7tnu0n0y5i8',
+    key: 'rzp_live_sg_l9vCeGO6ediF2E',
   },
   MY: {
     currency: {
