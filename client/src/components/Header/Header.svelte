@@ -17,7 +17,7 @@
 
 <div class="container header-container">
   <button on:click={handleClick} class="container logo-container">
-    <img class="logo-img" src={`${BASE_PATH ? `/${BASE_PATH}` : ''}/assets/images/logo.svg`} alt="logo-dukaan" />
+    <img class="logo-img" src="/svelte-shopping-app/assets/images/logo.svg" alt="Test Store logo" />
     <h1 class="logo-text">Test Store</h1>
   </button>
   {#if showCountryDropdown}
