@@ -6,8 +6,8 @@
   import ProductDetail from './pages/ProductDetail.svelte';
 
   export let url = '';
-  const { env } = process;
-  const basepath = env.BASE_PATH;
+  // Use the correct base path for GitHub Pages
+  const basepath = '/svelte-shopping-app';
 </script>
 
 <main>

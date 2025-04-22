@@ -11,7 +11,8 @@ const html = require('@rollup/plugin-html');
 import copy from 'rollup-plugin-copy';
 
 const getHtml = () => {
-  const basePath = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : '';
+  // Always use the repository name as base path for GitHub Pages
+  const basePath = '/svelte-shopping-app';
 
   // ------ script to use devstack API endpoint ------
   //   <script>
